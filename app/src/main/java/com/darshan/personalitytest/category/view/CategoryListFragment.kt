@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.darshan.personalitytest.category.model.Category
 import com.darshan.personalitytest.category.view.adapter.CategoryListAdapter
+import com.darshan.personalitytest.category.viewmodel.CategoryListViewModel
 import com.darshan.personalitytest.databinding.FragmentCategoryListBinding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -30,6 +30,8 @@ class CategoryListFragment : Fragment() {
     @Inject
     lateinit var categoryListLayoutManager: RecyclerView.LayoutManager
 
+    @Inject
+    lateinit var categoryListViewModel: CategoryListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,19 +57,33 @@ class CategoryListFragment : Fragment() {
             }
         }
 
-        //TODO
-        binding.viewFlipperCategoryList.displayedChild = UIState.LOADED.ordinal
-        categoryListAdapter.setCategory(listOf(
-            Category("hard_fact"),
-            Category("lifestyle"),
-            Category("introversion"),
-            Category("passion")
-        ))
+        categoryListViewModel.apply {
+            state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
+            loadCategories()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun onCategoryLoaded(state: CategoryListViewModel.State) {
+        when (state) {
+            CategoryListViewModel.State.Loading -> {
+                binding.viewFlipperCategoryList.displayedChild = UIState.LOADING.ordinal
+            }
+            is CategoryListViewModel.State.Success -> {
+                binding.viewFlipperCategoryList.displayedChild = UIState.LOADED.ordinal
+                categoryListAdapter.setCategory(state.categories)
+            }
+            CategoryListViewModel.State.Empty -> {
+                //TODO
+            }
+            CategoryListViewModel.State.Error -> {
+                //TODO
+            }
+        }
     }
 
 }
