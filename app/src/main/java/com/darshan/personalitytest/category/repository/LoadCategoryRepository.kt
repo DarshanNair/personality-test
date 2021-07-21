@@ -1,10 +1,10 @@
 package com.darshan.personalitytest.category.repository
 
-import com.darshan.personalitytest.category.model.Category
+import com.darshan.personalitytest.core.database.room.entity.CategoryEntity
 import io.reactivex.Single
 
 interface LoadCategoryRepository {
 
-    fun getCategories(): Single<List<Category>>
+    fun getCategories(): Single<List<CategoryEntity>>
 
 }

@@ -49,6 +49,11 @@ class CategoryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+
+        categoryListViewModel.apply {
+            state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
+            loadCategories()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -61,11 +66,6 @@ class CategoryListFragment : Fragment() {
                     add(R.id.container, QuestionsFragment.newInstance(it.name))
                 }
             }
-        }
-
-        categoryListViewModel.apply {
-            state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
-            loadCategories()
         }
     }
 

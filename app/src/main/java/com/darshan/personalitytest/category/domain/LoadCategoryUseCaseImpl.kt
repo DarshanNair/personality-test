@@ -2,6 +2,7 @@ package com.darshan.personalitytest.category.domain
 
 import com.darshan.personalitytest.category.model.Category
 import com.darshan.personalitytest.category.repository.LoadCategoryRepository
+import com.darshan.personalitytest.core.database.room.entity.CategoryEntity
 import com.darshan.personalitytest.core.domain.BaseUseCase
 import com.darshan.personalitytest.core.injection.qualifiers.ForIoThread
 import com.darshan.personalitytest.core.injection.qualifiers.ForMainThread
@@ -36,8 +37,12 @@ class LoadCategoryUseCaseImpl @Inject constructor(
         super.cleanup()
     }
 
-    private fun onSuccess(deals: List<Category>) {
-        callback?.onCategoryFetchSuccess(deals)
+    private fun onSuccess(CategoryEntities: List<CategoryEntity>) {
+        val categories = mutableListOf<Category>()
+        CategoryEntities.forEach {
+            categories.add(Category(it.category))
+        }
+        callback?.onCategoryFetchSuccess(categories)
     }
 
     private fun onError(throwable: Throwable) {

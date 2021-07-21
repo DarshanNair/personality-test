@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.darshan.personalitytest.databinding.FragmentQuestionsBinding
-import com.darshan.personalitytest.question.model.Question
 import com.darshan.personalitytest.question.view.adapter.QuestionsAdapter
+import com.darshan.personalitytest.question.viewmodel.QuestionsViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -24,6 +24,9 @@ class QuestionsFragment : Fragment() {
 
     @Inject
     lateinit var questionsLayoutManager: RecyclerView.LayoutManager
+
+    @Inject
+    lateinit var questionsViewModel: QuestionsViewModel
 
     companion object {
         private const val KEY_CATEGORY_ID = "KEY_CATEGORY_ID"
@@ -45,6 +48,14 @@ class QuestionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+
+        questionsViewModel.apply {
+            state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
+            arguments?.getString(KEY_CATEGORY_ID)?.let {
+                getQuestions(it)
+            }
+
+        }
     }
 
     private fun setupRecyclerView() {
@@ -55,48 +66,23 @@ class QuestionsFragment : Fragment() {
 
             }
         }
+    }
 
-        //TODO
-        questionsAdapter.setQuestion(
-            listOf(
-                Question("What is your gender?", listOf("male", "female", "other")),
-                Question(
-                    "How important is the gender of your partner?",
-                    listOf("not important", "important", "very important")
-                ),
-                Question(
-                    "Do any children under the age of 18 live with you?",
-                    listOf("yes", "sometimes", "no")
-                ),
-                Question("What is your gender?", listOf("male", "female", "other")),
-                Question(
-                    "How important is the gender of your partner?",
-                    listOf("not important", "important", "very important")
-                ),
-                Question(
-                    "Do any children under the age of 18 live with you?",
-                    listOf("yes", "sometimes", "no")
-                ),
-                Question("What is your gender?", listOf("male", "female", "other")),
-                Question(
-                    "How important is the gender of your partner?",
-                    listOf("not important", "important", "very important")
-                ),
-                Question(
-                    "Do any children under the age of 18 live with you?",
-                    listOf("yes", "sometimes", "no")
-                ),
-                Question("What is your gender?", listOf("male", "female", "other")),
-                Question(
-                    "How important is the gender of your partner?",
-                    listOf("not important", "important", "very important")
-                ),
-                Question(
-                    "Do any children under the age of 18 live with you?",
-                    listOf("yes", "sometimes", "no")
-                )
-            )
-        )
+    private fun onCategoryLoaded(state: QuestionsViewModel.State) {
+        when (state) {
+            QuestionsViewModel.State.Loading -> {
+
+            }
+            is QuestionsViewModel.State.Success -> {
+                questionsAdapter.setQuestion(state.questions)
+            }
+            QuestionsViewModel.State.Empty -> {
+                //TODO
+            }
+            QuestionsViewModel.State.Error -> {
+                //TODO
+            }
+        }
     }
 
     override fun onDestroyView() {

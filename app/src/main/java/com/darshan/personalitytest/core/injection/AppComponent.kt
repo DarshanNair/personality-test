@@ -2,6 +2,7 @@ package com.darshan.personalitytest.core.injection
 
 import android.app.Application
 import com.darshan.personalitytest.core.PersonalityTestApplication
+import com.darshan.personalitytest.core.database.room.injection.PersonalityDatabaseModule
 import com.darshan.personalitytest.core.injection.scopes.PerApplication
 import com.darshan.personalitytest.injection.MainActivityBuilderModule
 import dagger.BindsInstance
@@ -11,6 +12,7 @@ import dagger.Component
 @Component(
     modules = [
         BaseModule::class,
+        PersonalityDatabaseModule::class,
         MainActivityBuilderModule::class
     ]
 )

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.darshan.personalitytest.category.domain.injection.LoadCategoryUseCaseModule
-import com.darshan.personalitytest.category.repository.injection.LoadCategoryRepositoryModule
 import com.darshan.personalitytest.category.view.CategoryListFragment
 import com.darshan.personalitytest.category.viewmodel.CategoryListViewModel
 import com.darshan.personalitytest.category.viewmodel.CategoryListViewModelFactory

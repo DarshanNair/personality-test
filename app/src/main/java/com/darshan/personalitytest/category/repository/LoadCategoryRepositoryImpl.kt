@@ -1,21 +1,16 @@
 package com.darshan.personalitytest.category.repository
 
-import com.darshan.personalitytest.category.model.Category
+import com.darshan.personalitytest.core.database.room.PersonalityDatabase
+import com.darshan.personalitytest.core.database.room.entity.CategoryEntity
 import io.reactivex.Single
 import javax.inject.Inject
 
-class LoadCategoryRepositoryImpl @Inject constructor() : LoadCategoryRepository {
+class LoadCategoryRepositoryImpl @Inject constructor(
+    private val personalityDatabase: PersonalityDatabase
+) : LoadCategoryRepository {
 
-    override fun getCategories(): Single<List<Category>> {
-        //TODO
-        return Single.just(
-            listOf(
-                Category("hard_fact"),
-                Category("lifestyle"),
-                Category("introversion"),
-                Category("passion")
-            )
-        )
+    override fun getCategories(): Single<List<CategoryEntity>> {
+        return personalityDatabase.categoryDao().getCategories()
     }
 
 }
