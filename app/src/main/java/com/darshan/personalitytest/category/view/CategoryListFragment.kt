@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
+import com.darshan.personalitytest.R
 import com.darshan.personalitytest.category.view.adapter.CategoryListAdapter
 import com.darshan.personalitytest.category.viewmodel.CategoryListViewModel
 import com.darshan.personalitytest.databinding.FragmentCategoryListBinding
+import com.darshan.personalitytest.question.view.QuestionsFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -53,7 +56,10 @@ class CategoryListFragment : Fragment() {
             it.layoutManager = categoryListLayoutManager
             it.adapter = categoryListAdapter
             categoryListAdapter.setOnClickListener {
-
+                requireActivity().supportFragmentManager.commit {
+                    addToBackStack(null)
+                    add(R.id.container, QuestionsFragment.newInstance(it.name))
+                }
             }
         }
 

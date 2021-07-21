@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class CategoryListAdapter @Inject constructor(
     private val layoutInflater: LayoutInflater
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<CategoryViewHolder>() {
 
     private lateinit var clickCallback: (dealItem: Category) -> Unit
     private var categories = emptyList<Category>()
@@ -24,7 +24,7 @@ class CategoryListAdapter @Inject constructor(
         clickCallback = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding = ViewCategoryItemBinding.inflate(layoutInflater, parent, false)
         return CategoryViewHolder(binding).apply {
             itemView.setOnClickListener {
@@ -33,9 +33,8 @@ class CategoryListAdapter @Inject constructor(
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val dealsListViewHolder = holder as? CategoryViewHolder
-        dealsListViewHolder?.bind(categories[position])
+    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+        holder.bind(categories[position])
     }
 
     override fun getItemCount() = categories.size

@@ -4,12 +4,14 @@ import android.content.Context
 import com.darshan.personalitytest.MainActivity
 import com.darshan.personalitytest.category.injection.CategoryListFragmentBuilderModule
 import com.darshan.personalitytest.core.injection.scopes.PerActivity
+import com.darshan.personalitytest.question.injection.QuestionsFragmentBuilderModule
 import dagger.Module
 import dagger.Provides
 
 @Module(
     includes = [
-        CategoryListFragmentBuilderModule::class
+        CategoryListFragmentBuilderModule::class,
+        QuestionsFragmentBuilderModule::class
     ]
 )
 class MainActivityModule {
