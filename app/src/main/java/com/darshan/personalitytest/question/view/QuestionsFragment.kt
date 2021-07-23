@@ -62,9 +62,9 @@ class QuestionsFragment : Fragment() {
         binding.questionsRecyclerView.let {
             it.layoutManager = questionsLayoutManager
             it.adapter = questionsAdapter
-            questionsAdapter.setOnClickListener {
-
-            }
+        }
+        questionsAdapter.setOnClickListener {
+            questionsViewModel.updateQuestion(it)
         }
     }
 

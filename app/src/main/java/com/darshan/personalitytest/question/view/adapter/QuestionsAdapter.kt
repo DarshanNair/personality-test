@@ -12,7 +12,7 @@ class QuestionsAdapter @Inject constructor(
     private val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<QuestionsViewHolder>() {
 
-    private lateinit var clickCallback: (dealItem: Question) -> Unit
+    private lateinit var clickCallback: (question: Question) -> Unit
     private var questions = emptyList<Question>()
 
     fun setQuestion(questions: List<Question>) {
@@ -26,11 +26,7 @@ class QuestionsAdapter @Inject constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionsViewHolder {
         val binding = ViewQuestionItemBinding.inflate(layoutInflater, parent, false)
-        return QuestionsViewHolder(binding).apply {
-            itemView.setOnClickListener {
-                questions.getOrNull(adapterPosition)?.let { clickCallback(it) }
-            }
-        }
+        return QuestionsViewHolder(binding, clickCallback)
     }
 
     override fun onBindViewHolder(holder: QuestionsViewHolder, position: Int) {

@@ -7,14 +7,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.darshan.personalitytest.core.injection.qualifiers.ForFragment
 import com.darshan.personalitytest.core.injection.scopes.PerFragment
-import com.darshan.personalitytest.question.domain.injection.LoadQuestionUseCaseModule
+import com.darshan.personalitytest.question.domain.loadquestion.injection.LoadQuestionUseCaseModule
+import com.darshan.personalitytest.question.domain.submitcategory.injection.SubmitUseCaseModule
+import com.darshan.personalitytest.question.domain.updatequestion.injection.UpdateQuestionUseCaseModule
 import com.darshan.personalitytest.question.view.QuestionsFragment
 import com.darshan.personalitytest.question.viewmodel.QuestionsViewModel
 import com.darshan.personalitytest.question.viewmodel.QuestionsViewModelFactory
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [LoadQuestionUseCaseModule::class])
+@Module(
+    includes = [
+        LoadQuestionUseCaseModule::class,
+        UpdateQuestionUseCaseModule::class,
+        SubmitUseCaseModule::class
+    ]
+)
 class QuestionsFragmentModule {
 
     @Provides

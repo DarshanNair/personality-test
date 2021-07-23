@@ -13,7 +13,16 @@ abstract class QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertQuestions(questions: List<QuestionEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertQuestion(question: QuestionEntity)
+
     @Query("SELECT * FROM QuestionEntity")
     abstract fun getQuestions(): Single<QuestionEntity>
+
+    @Query("SELECT * FROM QuestionEntity WHERE question = :question")
+    abstract fun getQuestion(question: String): Single<QuestionEntity>
+
+    @Query("SELECT * FROM QuestionEntity WHERE category = :category")
+    abstract fun getQuestionsByCategory(category: String): Single<List<QuestionEntity>>
 
 }

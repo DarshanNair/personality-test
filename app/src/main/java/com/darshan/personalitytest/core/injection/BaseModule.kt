@@ -6,6 +6,7 @@ import com.darshan.personalitytest.core.injection.qualifiers.ForApplication
 import com.darshan.personalitytest.core.injection.qualifiers.ForIoThread
 import com.darshan.personalitytest.core.injection.qualifiers.ForMainThread
 import com.darshan.personalitytest.core.injection.scopes.PerApplication
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -32,5 +33,9 @@ class BaseModule {
     @PerApplication
     @ForMainThread
     fun provideMainScheduler(): Scheduler = AndroidSchedulers.mainThread()
+
+    @Provides
+    @PerApplication
+    fun provideGson() = Gson()
 
 }

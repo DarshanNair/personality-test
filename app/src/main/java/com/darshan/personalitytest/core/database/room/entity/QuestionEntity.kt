@@ -9,6 +9,6 @@ data class QuestionEntity(
     val category: String,
     val question_type: String,
     val question_options: String,
-    val question_option_selected: String,
-    val question_condition: String
+    var question_option_selected: String = "",
+    val question_condition: String = ""
 )

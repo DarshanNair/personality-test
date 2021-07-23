@@ -1,16 +1,18 @@
-package com.darshan.personalitytest.question.domain
+package com.darshan.personalitytest.question.domain.loadquestion
 
 import com.darshan.personalitytest.core.domain.BaseUseCase
 import com.darshan.personalitytest.core.injection.qualifiers.ForIoThread
 import com.darshan.personalitytest.core.injection.qualifiers.ForMainThread
+import com.darshan.personalitytest.core.network.model.QuestionData
 import com.darshan.personalitytest.question.model.Question
 import com.darshan.personalitytest.question.repository.LoadQuestionRepository
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+import javax.inject.Named
 
 class LoadQuestionUseCaseImpl @Inject constructor(
-    compositeDisposable: CompositeDisposable,
+    @Named("LoadQuestionUseCase") compositeDisposable: CompositeDisposable,
     private val loadQuestionRepository: LoadQuestionRepository,
     @ForIoThread private val ioScheduler: Scheduler,
     @ForMainThread private val mainScheduler: Scheduler
@@ -36,8 +38,19 @@ class LoadQuestionUseCaseImpl @Inject constructor(
         super.cleanup()
     }
 
-    private fun onSuccess(deals: List<Question>) {
-        callback?.onQuestionFetchSuccess(deals)
+    private fun onSuccess(questionEntities: List<QuestionData>) {
+        val questions = mutableListOf<Question>()
+        questionEntities.forEach {
+            questions.add(
+                Question(
+                    it.question,
+                    it.category,
+                    it.questionType.options,
+                    it.questionType.selectedOption
+                )
+            )
+        }
+        callback?.onQuestionFetchSuccess(questions)
     }
 
     private fun onError(throwable: Throwable) {

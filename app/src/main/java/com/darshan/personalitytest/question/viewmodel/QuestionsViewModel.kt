@@ -17,4 +17,6 @@ abstract class QuestionsViewModel : ViewModel() {
 
     abstract fun getQuestions(category: String)
 
+    abstract fun updateQuestion(question: Question)
+
 }

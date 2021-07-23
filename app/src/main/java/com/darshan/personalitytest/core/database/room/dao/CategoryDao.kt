@@ -5,17 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.darshan.personalitytest.core.database.room.entity.CategoryEntity
-import io.reactivex.Completable
 import io.reactivex.Single
 
 @Dao
 abstract class CategoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertCategories(categories: List<CategoryEntity>): Completable
+    abstract fun insertCategories(categories: List<CategoryEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertCategories(categories: CategoryEntity): Completable
+    abstract fun insertCategories(categories: CategoryEntity)
 
     @Query("SELECT * FROM CategoryEntity")
     abstract fun getCategories(): Single<List<CategoryEntity>>
