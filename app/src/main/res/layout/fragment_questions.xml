@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/questions_recycler_view"
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_flipper_questions"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" />
+    android:background="@android:color/white"
+    android:measureAllChildren="false">
+
+    <include
+        android:id="@+id/view_loading"
+        layout="@layout/view_loading" />
+
+    <include
+        android:id="@+id/view_questions_loaded"
+        layout="@layout/view_questions_loaded" />
+
+    <include
+        android:id="@+id/view_general_error"
+        layout="@layout/view_general_error" />
+
+</ViewFlipper>

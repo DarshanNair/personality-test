@@ -14,4 +14,8 @@
         android:id="@+id/view_category_list_loaded"
         layout="@layout/view_category_list_loaded" />
 
+    <include
+        android:id="@+id/view_general_error"
+        layout="@layout/view_general_error" />
+
 </ViewFlipper>

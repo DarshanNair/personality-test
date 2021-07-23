@@ -17,7 +17,7 @@ abstract class QuestionDao {
     abstract fun insertQuestion(question: QuestionEntity)
 
     @Query("SELECT * FROM QuestionEntity")
-    abstract fun getQuestions(): Single<QuestionEntity>
+    abstract fun getQuestions(): Single<List<QuestionEntity>>
 
     @Query("SELECT * FROM QuestionEntity WHERE question = :question")
     abstract fun getQuestion(question: String): Single<QuestionEntity>

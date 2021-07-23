@@ -9,7 +9,6 @@ abstract class QuestionsViewModel : ViewModel() {
     sealed class State {
         object Loading : State()
         data class Success(val questions: List<Question>) : State()
-        object Empty : State()
         object Error : State()
     }
 

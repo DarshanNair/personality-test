@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PersonalityTest</string>
+    <string name="error_message_title">Something went wrong</string>
+    <string name="error_message_button">Try again</string>
 </resources>

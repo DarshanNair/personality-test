@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.darshan.personalitytest.category.view.CategoryListFragment
 import com.darshan.personalitytest.databinding.FragmentQuestionsBinding
 import com.darshan.personalitytest.question.view.adapter.QuestionsAdapter
 import com.darshan.personalitytest.question.viewmodel.QuestionsViewModel
@@ -14,6 +15,12 @@ import javax.inject.Inject
 
 
 class QuestionsFragment : Fragment() {
+
+    enum class UIState {
+        LOADING,
+        LOADED,
+        ERROR
+    }
 
     private var _binding: FragmentQuestionsBinding? = null
 
@@ -59,7 +66,7 @@ class QuestionsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.questionsRecyclerView.let {
+        binding.viewQuestionsLoaded.questionsRecyclerView.let {
             it.layoutManager = questionsLayoutManager
             it.adapter = questionsAdapter
         }
@@ -71,16 +78,14 @@ class QuestionsFragment : Fragment() {
     private fun onCategoryLoaded(state: QuestionsViewModel.State) {
         when (state) {
             QuestionsViewModel.State.Loading -> {
-
+                binding.viewFlipperQuestions.displayedChild = UIState.LOADING.ordinal
             }
             is QuestionsViewModel.State.Success -> {
+                binding.viewFlipperQuestions.displayedChild = CategoryListFragment.UIState.LOADED.ordinal
                 questionsAdapter.setQuestion(state.questions)
             }
-            QuestionsViewModel.State.Empty -> {
-                //TODO
-            }
             QuestionsViewModel.State.Error -> {
-                //TODO
+                binding.viewFlipperQuestions.displayedChild = UIState.ERROR.ordinal
             }
         }
     }

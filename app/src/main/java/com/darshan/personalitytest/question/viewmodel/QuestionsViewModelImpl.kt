@@ -27,11 +27,7 @@ class QuestionsViewModelImpl @Inject internal constructor(
     }
 
     override fun onQuestionFetchSuccess(questions: List<Question>) {
-        if (questions.isEmpty()) {
-            state.value = State.Empty
-        } else {
-            state.value = State.Success(questions)
-        }
+        state.value = State.Success(questions)
     }
 
     override fun onQuestionFetchError(throwable: Throwable) {

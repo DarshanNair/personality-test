@@ -20,7 +20,9 @@ class CategoryListFragment : Fragment() {
 
     enum class UIState {
         LOADING,
-        LOADED
+        LOADED,
+        ERROR,
+        EMPTY
     }
 
     private var _binding: FragmentCategoryListBinding? = null
@@ -83,10 +85,10 @@ class CategoryListFragment : Fragment() {
                 binding.viewFlipperCategoryList.displayedChild = UIState.LOADED.ordinal
                 categoryListAdapter.setCategory(state.categories)
             }
-            CategoryListViewModel.State.Empty -> {
-                //TODO
-            }
             CategoryListViewModel.State.Error -> {
+                binding.viewFlipperCategoryList.displayedChild = UIState.ERROR.ordinal
+            }
+            CategoryListViewModel.State.Empty -> {
                 //TODO
             }
         }

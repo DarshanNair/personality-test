@@ -13,9 +13,6 @@ abstract class CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertCategories(categories: List<CategoryEntity>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertCategories(categories: CategoryEntity)
-
     @Query("SELECT * FROM CategoryEntity")
     abstract fun getCategories(): Single<List<CategoryEntity>>
 
