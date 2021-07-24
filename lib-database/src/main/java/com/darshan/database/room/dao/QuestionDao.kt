@@ -1,9 +1,6 @@
 package com.darshan.database.room.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.darshan.database.room.entity.QuestionEntity
 import io.reactivex.Single
 
@@ -13,8 +10,8 @@ abstract class QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertQuestions(questions: List<QuestionEntity>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertQuestion(question: QuestionEntity)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun updateQuestion(question: QuestionEntity)
 
     @Query("SELECT * FROM QuestionEntity")
     abstract fun getQuestions(): Single<List<QuestionEntity>>

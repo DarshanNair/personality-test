@@ -1,4 +1,4 @@
-package com.darshan.personalitytest.category.view
+package com.darshan.personalitytest.app
 
 import android.app.Application
 import android.content.Context

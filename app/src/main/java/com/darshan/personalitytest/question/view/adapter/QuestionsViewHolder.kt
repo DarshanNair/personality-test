@@ -8,7 +8,7 @@ import com.darshan.personalitytest.databinding.ViewQuestionItemBinding
 import com.darshan.personalitytest.question.model.Question
 
 class QuestionsViewHolder(
-    private val binding: ViewQuestionItemBinding,
+    val binding: ViewQuestionItemBinding,
     private val clickCallback: (question: Question) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -16,11 +16,13 @@ class QuestionsViewHolder(
         binding.question.text = question.question
         with(binding.radioContent) {
             removeAllViewsInLayout()
-            addView(createOptionsView(question))
+            val radioGroup = createOptionsView(question)
+            addView(radioGroup)
+            setRadioCheck(radioGroup, question)
         }
     }
 
-    private fun createOptionsView(question: Question): View {
+    private fun createOptionsView(question: Question): RadioGroup {
         val radioGroup = RadioGroup(binding.root.context)
         question.options.forEach {
             val radioButton = RadioButton(binding.root.context)
@@ -36,6 +38,13 @@ class QuestionsViewHolder(
             }
         }
         return radioGroup
+    }
+
+    private fun setRadioCheck(radioGroup: RadioGroup, question: Question) {
+        val selectIndex = question.options.indexOf(question.selectedOption)
+        (radioGroup.getChildAt(selectIndex) as? RadioButton)?.let {
+            it.isChecked = true
+        }
     }
 
 }

@@ -10,7 +10,7 @@ interface LoadQuestionRepository {
 
     fun getQuestion(question: String): Single<QuestionEntity>
 
-    fun insertQuestions(questionEntity: QuestionEntity)
+    fun updateQuestion(questionEntity: QuestionEntity)
 
     fun getQuestionsByCategory(category: String): Single<List<QuestionEntity>>
 

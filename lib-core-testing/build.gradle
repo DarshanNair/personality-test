@@ -43,9 +43,10 @@ dependencies {
     implementation deps.fragmentKTX
     implementation deps.appCompat
     implementation deps.materialDesign
-    testImplementation deps.junit
-    androidTestImplementation deps.androidJunit
-    androidTestImplementation deps.espressoCore
+    implementation deps.junit
+    implementation deps.androidJunit
+    implementation deps.espressoCore
+    implementation deps.androidXRunner
 
     // OkHttp
     implementation deps.mockWebServer

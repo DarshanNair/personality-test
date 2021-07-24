@@ -1,7 +1,6 @@
-package com.darshan.personalitytest.category.view
+package com.darshan.personalitytest.app
 
 import android.app.Activity
-import com.darshan.personalitytest.app.PersonalityTestApplication
 import dagger.android.AndroidInjector
 
 open class MyPersonalityTestApplication : PersonalityTestApplication() {

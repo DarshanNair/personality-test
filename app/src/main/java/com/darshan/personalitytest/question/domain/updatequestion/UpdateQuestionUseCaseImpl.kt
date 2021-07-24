@@ -22,7 +22,7 @@ class UpdateQuestionUseCaseImpl @Inject constructor(
             loadQuestionRepository.getQuestion(question.question)
                 .map { questionEntity ->
                     questionEntity.question_option_selected = question.selectedOption.orEmpty()
-                    loadQuestionRepository.insertQuestions(questionEntity)
+                    loadQuestionRepository.updateQuestion(questionEntity)
                 }
                 .subscribeOn(ioScheduler)
                 .observeOn(mainScheduler)
