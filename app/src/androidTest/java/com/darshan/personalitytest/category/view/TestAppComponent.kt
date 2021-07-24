@@ -2,6 +2,7 @@ package com.darshan.personalitytest.category.view
 
 import android.app.Application
 import com.darshan.core.injection.scopes.PerApplication
+import com.darshan.coretesting.MockUrlModule
 import com.darshan.database.room.injection.PersonalityDatabaseModule
 import com.darshan.network.api.injection.PersonalityApiModule
 import com.darshan.personalitytest.app.PersonalityTestApplication

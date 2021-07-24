@@ -1,0 +1,87 @@
+[
+  {
+    "question": "What is your gender?",
+    "category": "hard_fact",
+    "question_type": {
+      "type": "single_choice",
+      "selected_option": "",
+      "options": [
+        "male",
+        "female",
+        "other"
+      ]
+    }
+  },
+  {
+    "question": "How important is the gender of your partner?",
+    "category": "hard_fact",
+    "question_type": {
+      "type": "single_choice",
+      "selected_option": "",
+      "options": [
+        "not important",
+        "important",
+        "very important"
+      ]
+    }
+  },
+  {
+    "question": "How important is the age of your partner to you?",
+    "category": "hard_fact",
+    "question_type": {
+      "type": "single_choice_conditional",
+      "selected_option": "",
+      "options": [
+        "not important",
+        "important",
+        "very important"
+      ],
+      "condition": {
+        "predicate": {
+          "exactEquals": [
+            "${selection}",
+            "very important"
+          ]
+        },
+        "if_positive": {
+          "question": "What age should your potential partner be?",
+          "category": "hard_fact",
+          "question_type": {
+            "type": "number_range",
+            "range": {
+              "from": 18,
+              "to": 140
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "question": "Do any children under the age of 18 live with you?",
+    "category": "hard_fact",
+    "question_type": {
+      "type": "single_choice",
+      "selected_option": "",
+      "options": [
+        "yes",
+        "sometimes",
+        "no"
+      ]
+    }
+  },
+  {
+    "question": "What is your marital status?",
+    "category": "hard_fact",
+    "question_type": {
+      "type": "single_choice",
+      "selected_option": "",
+      "options": [
+        "never married",
+        "separated",
+        "divorced",
+        "widowed"
+      ]
+    }
+  }
+]

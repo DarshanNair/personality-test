@@ -41,6 +41,7 @@ dependencies {
     api project(':lib-core')
     api project(':lib-database')
     api project(':lib-network')
+    api project(':lib-core-testing')
 
     implementation deps.kotlin
     implementation deps.materialDesign
