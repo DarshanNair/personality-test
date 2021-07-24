@@ -1,5 +1,6 @@
 package com.darshan.personalitytest.category.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.darshan.personalitytest.R
 import com.darshan.personalitytest.category.view.adapter.CategoryListAdapter
 import com.darshan.personalitytest.category.viewmodel.CategoryListViewModel
+import com.darshan.personalitytest.core.testutil.EspressoIdlingResource
 import com.darshan.personalitytest.databinding.FragmentCategoryListBinding
 import com.darshan.personalitytest.question.view.QuestionsFragment
 import dagger.android.support.AndroidSupportInjection
@@ -38,12 +40,16 @@ class CategoryListFragment : Fragment() {
     @Inject
     lateinit var categoryListViewModel: CategoryListViewModel
 
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        AndroidSupportInjection.inject(this)
         _binding = FragmentCategoryListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,6 +60,7 @@ class CategoryListFragment : Fragment() {
 
         categoryListViewModel.apply {
             state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
+            EspressoIdlingResource.increment()
             loadCategories()
         }
     }
@@ -92,6 +99,7 @@ class CategoryListFragment : Fragment() {
                 //TODO
             }
         }
+        EspressoIdlingResource.decrement()
     }
 
 }

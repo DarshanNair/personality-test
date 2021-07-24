@@ -1,7 +1,7 @@
 package com.darshan.personalitytest.question.domain.loadquestion
 
-import com.darshan.personalitytest.core.network.model.QuestionData
-import com.darshan.personalitytest.core.network.model.QuestionType
+import com.darshan.network.model.QuestionData
+import com.darshan.network.model.QuestionType
 import com.darshan.personalitytest.question.model.Question
 import com.darshan.personalitytest.question.repository.LoadQuestionRepository
 import io.reactivex.Single

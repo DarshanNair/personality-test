@@ -1,7 +1,7 @@
 package com.darshan.personalitytest.question.repository
 
-import com.darshan.personalitytest.core.database.room.entity.QuestionEntity
-import com.darshan.personalitytest.core.network.model.QuestionData
+import com.darshan.database.room.entity.QuestionEntity
+import com.darshan.network.model.QuestionData
 import io.reactivex.Single
 
 interface LoadQuestionRepository {

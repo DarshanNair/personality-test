@@ -1,9 +1,9 @@
 package com.darshan.personalitytest.category.repository
 
-import com.darshan.personalitytest.core.database.room.PersonalityDatabase
-import com.darshan.personalitytest.core.database.room.dao.CategoryDao
-import com.darshan.personalitytest.core.database.room.entity.CategoryEntity
-import com.darshan.personalitytest.core.network.api.PersonalityApi
+import com.darshan.database.room.PersonalityDatabase
+import com.darshan.database.room.dao.CategoryDao
+import com.darshan.database.room.entity.CategoryEntity
+import com.darshan.network.api.PersonalityApi
 import io.reactivex.Single
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Before

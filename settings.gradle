@@ -1,2 +1,6 @@
 rootProject.name = "PersonalityTest"
 include ':app'
+include ':lib-core-testing'
+include ':lib-core'
+include ':lib-network'
+include ':lib-database'

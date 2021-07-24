@@ -1,6 +1,6 @@
 package com.darshan.personalitytest.question.domain.updatequestion
 
-import com.darshan.personalitytest.core.database.room.entity.QuestionEntity
+import com.darshan.database.room.entity.QuestionEntity
 import com.darshan.personalitytest.question.model.Question
 import com.darshan.personalitytest.question.repository.LoadQuestionRepository
 import io.reactivex.Single

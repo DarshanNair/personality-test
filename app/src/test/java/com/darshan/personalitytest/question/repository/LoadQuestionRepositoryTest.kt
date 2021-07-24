@@ -1,11 +1,11 @@
 package com.darshan.personalitytest.question.repository
 
-import com.darshan.personalitytest.core.database.room.PersonalityDatabase
-import com.darshan.personalitytest.core.database.room.dao.QuestionDao
-import com.darshan.personalitytest.core.database.room.entity.QuestionEntity
-import com.darshan.personalitytest.core.network.api.PersonalityApi
-import com.darshan.personalitytest.core.network.model.QuestionData
-import com.darshan.personalitytest.core.network.model.QuestionType
+import com.darshan.database.room.PersonalityDatabase
+import com.darshan.database.room.dao.QuestionDao
+import com.darshan.database.room.entity.QuestionEntity
+import com.darshan.network.api.PersonalityApi
+import com.darshan.network.model.QuestionData
+import com.darshan.network.model.QuestionType
 import com.google.gson.Gson
 import io.reactivex.Single
 import org.amshove.kluent.shouldBeEqualTo

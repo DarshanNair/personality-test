@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.darshan.personalitytest.category.view.CategoryListFragment
+import com.darshan.personalitytest.core.testutil.EspressoIdlingResource
 import com.darshan.personalitytest.databinding.FragmentQuestionsBinding
 import com.darshan.personalitytest.question.view.adapter.QuestionsAdapter
 import com.darshan.personalitytest.question.viewmodel.QuestionsViewModel
@@ -59,6 +60,7 @@ class QuestionsFragment : Fragment() {
         questionsViewModel.apply {
             state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
             arguments?.getString(KEY_CATEGORY_ID)?.let {
+                EspressoIdlingResource.increment()
                 getQuestions(it)
             }
 
@@ -88,6 +90,7 @@ class QuestionsFragment : Fragment() {
                 binding.viewFlipperQuestions.displayedChild = UIState.ERROR.ordinal
             }
         }
+        EspressoIdlingResource.decrement()
     }
 
     override fun onDestroyView() {

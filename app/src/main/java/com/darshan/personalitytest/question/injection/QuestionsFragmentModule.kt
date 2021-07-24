@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.darshan.personalitytest.core.injection.qualifiers.ForFragment
-import com.darshan.personalitytest.core.injection.scopes.PerFragment
+import com.darshan.core.injection.qualifiers.ForFragment
+import com.darshan.core.injection.scopes.PerFragment
 import com.darshan.personalitytest.question.domain.loadquestion.injection.LoadQuestionUseCaseModule
 import com.darshan.personalitytest.question.domain.submitcategory.injection.SubmitUseCaseModule
 import com.darshan.personalitytest.question.domain.updatequestion.injection.UpdateQuestionUseCaseModule

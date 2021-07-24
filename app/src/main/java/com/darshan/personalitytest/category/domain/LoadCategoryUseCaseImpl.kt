@@ -1,10 +1,10 @@
 package com.darshan.personalitytest.category.domain
 
+import com.darshan.core.domain.BaseUseCase
+import com.darshan.core.injection.qualifiers.ForIoThread
+import com.darshan.core.injection.qualifiers.ForMainThread
 import com.darshan.personalitytest.category.model.Category
 import com.darshan.personalitytest.category.repository.LoadCategoryRepository
-import com.darshan.personalitytest.core.domain.BaseUseCase
-import com.darshan.personalitytest.core.injection.qualifiers.ForIoThread
-import com.darshan.personalitytest.core.injection.qualifiers.ForMainThread
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject

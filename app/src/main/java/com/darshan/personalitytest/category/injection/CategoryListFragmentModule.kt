@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.darshan.core.injection.qualifiers.ForFragment
+import com.darshan.core.injection.scopes.PerFragment
 import com.darshan.personalitytest.category.domain.injection.LoadCategoryUseCaseModule
 import com.darshan.personalitytest.category.view.CategoryListFragment
 import com.darshan.personalitytest.category.viewmodel.CategoryListViewModel
 import com.darshan.personalitytest.category.viewmodel.CategoryListViewModelFactory
-import com.darshan.personalitytest.core.injection.qualifiers.ForFragment
-import com.darshan.personalitytest.core.injection.scopes.PerFragment
 import dagger.Module
 import dagger.Provides
 

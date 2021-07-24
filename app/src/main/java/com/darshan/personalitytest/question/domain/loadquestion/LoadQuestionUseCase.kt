@@ -1,6 +1,6 @@
 package com.darshan.personalitytest.question.domain.loadquestion
 
-import com.darshan.personalitytest.core.domain.UseCase
+import com.darshan.core.domain.UseCase
 import com.darshan.personalitytest.question.model.Question
 
 interface LoadQuestionUseCase : UseCase {

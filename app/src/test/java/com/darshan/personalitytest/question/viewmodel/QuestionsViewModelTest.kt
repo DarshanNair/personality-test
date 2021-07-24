@@ -92,15 +92,6 @@ class QuestionsViewModelTest {
     }
 
     @Test
-    fun `Question Loaded - Empty`() {
-        // WHEN
-        subject.onQuestionFetchSuccess(emptyList())
-
-        // THEN
-        thenObserverShouldReceiveCorrectStates(QuestionsViewModel.State.Empty)
-    }
-
-    @Test
     fun `Question Loaded - Error`() {
         // WHEN
         subject.onQuestionFetchError(mockThrowable)

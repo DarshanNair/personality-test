@@ -1,8 +1,8 @@
 package com.darshan.personalitytest.question.domain.submitcategory
 
-import com.darshan.personalitytest.core.domain.BaseUseCase
-import com.darshan.personalitytest.core.injection.qualifiers.ForIoThread
-import com.darshan.personalitytest.core.injection.qualifiers.ForMainThread
+import com.darshan.core.domain.BaseUseCase
+import com.darshan.core.injection.qualifiers.ForIoThread
+import com.darshan.core.injection.qualifiers.ForMainThread
 import com.darshan.personalitytest.question.model.Question
 import com.darshan.personalitytest.question.repository.LoadQuestionRepository
 import io.reactivex.Scheduler

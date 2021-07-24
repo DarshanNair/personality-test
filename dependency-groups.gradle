@@ -1,0 +1,24 @@
+def group(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+ext.dagger = group {
+    implementation deps.dagger
+    implementation deps.daggerAndroid
+    kapt deps.daggerKaptCompiler
+    kapt deps.daggerKaptProcessor
+}
+
+ext.room = group {
+    implementation deps.roomRuntime
+    annotationProcessor deps.roomCompiler
+    implementation deps.roomRxJava
+    kapt deps.roomKapt
+}
+
+ext.retrofit = group {
+    implementation deps.retrofit
+    implementation deps.retrofitAdapter
+    implementation deps.retrofitGson
+}

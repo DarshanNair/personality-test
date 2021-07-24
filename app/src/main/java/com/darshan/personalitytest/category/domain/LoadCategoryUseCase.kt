@@ -1,7 +1,7 @@
 package com.darshan.personalitytest.category.domain
 
+import com.darshan.core.domain.UseCase
 import com.darshan.personalitytest.category.model.Category
-import com.darshan.personalitytest.core.domain.UseCase
 
 interface LoadCategoryUseCase : UseCase {
 
