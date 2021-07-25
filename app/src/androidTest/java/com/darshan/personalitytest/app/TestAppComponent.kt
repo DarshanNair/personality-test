@@ -7,7 +7,7 @@ import com.darshan.database.room.injection.PersonalityDatabaseModule
 import com.darshan.network.api.injection.PersonalityApiModule
 import com.darshan.personalitytest.app.injection.AppComponent
 import com.darshan.personalitytest.app.injection.BaseModule
-import com.darshan.personalitytest.injection.MainActivityBuilderModule
+import com.darshan.personalitytest.main.injection.MainActivityBuilderModule
 import dagger.BindsInstance
 import dagger.Component
 

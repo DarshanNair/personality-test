@@ -9,7 +9,7 @@ class CategoryViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(category: Category) {
-        binding.categoryTitle.text = category.name
+        binding.categoryTitle.text = category.name.uppercase()
     }
 
 }

@@ -19,6 +19,7 @@ import com.darshan.coretesting.MockServerDispatcher
 import com.darshan.coretesting.RecyclerViewMatcher
 import com.darshan.personalitytest.category.view.adapter.CategoryViewHolder
 import com.darshan.personalitytest.core.testutil.EspressoIdlingResource
+import com.darshan.personalitytest.main.MainActivity
 import com.darshan.personalitytest.question.view.adapter.QuestionsViewHolder
 import okhttp3.mockwebserver.MockWebServer
 import org.amshove.kluent.shouldBeEqualTo

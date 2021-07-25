@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
+import com.darshan.core.DeviceManager
 import com.darshan.personalitytest.R
 import com.darshan.personalitytest.category.view.adapter.CategoryListAdapter
 import com.darshan.personalitytest.category.viewmodel.CategoryListViewModel
 import com.darshan.personalitytest.core.testutil.EspressoIdlingResource
 import com.darshan.personalitytest.databinding.FragmentCategoryListBinding
+import com.darshan.personalitytest.main.viewmodel.SharedViewModel
 import com.darshan.personalitytest.question.view.QuestionsFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -40,6 +42,12 @@ class CategoryListFragment : Fragment() {
     @Inject
     lateinit var categoryListViewModel: CategoryListViewModel
 
+    @Inject
+    lateinit var sharedViewModel: SharedViewModel
+
+    @Inject
+    lateinit var deviceManager: DeviceManager
+
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -57,23 +65,39 @@ class CategoryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-
-        categoryListViewModel.apply {
-            state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
-            EspressoIdlingResource.increment()
-            loadCategories()
-        }
+        setupClickListener()
+        setupViewModel(savedInstanceState)
     }
 
     private fun setupRecyclerView() {
         binding.viewCategoryListLoaded.categoryListRecyclerView.let {
             it.layoutManager = categoryListLayoutManager
             it.adapter = categoryListAdapter
-            categoryListAdapter.setOnClickListener {
+        }
+    }
+
+    private fun setupClickListener() {
+        binding.viewGeneralError.tryAgainButton.setOnClickListener {
+            categoryListViewModel.loadCategories()
+        }
+        categoryListAdapter.setOnClickListener { category ->
+            sharedViewModel.state.value = category.name
+            if (!deviceManager.isTablet) {
                 requireActivity().supportFragmentManager.commit {
                     addToBackStack(null)
-                    add(R.id.container, QuestionsFragment.newInstance(it.name))
+                    add(R.id.container, QuestionsFragment())
                 }
+            }
+        }
+    }
+
+    private fun setupViewModel(savedInstanceState: Bundle?) {
+        categoryListViewModel.apply {
+            state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
+            EspressoIdlingResource.increment()
+            if (savedInstanceState == null) {
+                sharedViewModel.state.value = null
+                loadCategories()
             }
         }
     }

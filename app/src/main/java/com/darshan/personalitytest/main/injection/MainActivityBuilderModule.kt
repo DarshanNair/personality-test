@@ -1,7 +1,7 @@
-package com.darshan.personalitytest.injection
+package com.darshan.personalitytest.main.injection
 
 import com.darshan.core.injection.scopes.PerActivity
-import com.darshan.personalitytest.MainActivity
+import com.darshan.personalitytest.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

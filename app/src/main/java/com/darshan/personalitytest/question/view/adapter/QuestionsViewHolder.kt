@@ -18,7 +18,6 @@ class QuestionsViewHolder(
             removeAllViewsInLayout()
             val radioGroup = createOptionsView(question)
             addView(radioGroup)
-            setRadioCheck(radioGroup, question)
         }
     }
 
@@ -30,6 +29,7 @@ class QuestionsViewHolder(
             radioButton.tag = it
             radioGroup.addView(radioButton)
         }
+        setRadioCheck(radioGroup, question)
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             val radioButton = group?.findViewById<RadioButton>(checkedId)
             radioButton?.let {

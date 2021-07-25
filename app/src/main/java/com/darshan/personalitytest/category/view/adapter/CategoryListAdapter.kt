@@ -12,7 +12,7 @@ class CategoryListAdapter @Inject constructor(
     private val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    private lateinit var clickCallback: (dealItem: Category) -> Unit
+    private lateinit var clickCallback: (category: Category) -> Unit
     private var categories = emptyList<Category>()
 
     fun setCategory(dealItems: List<Category>) {

@@ -18,4 +18,8 @@
         android:id="@+id/view_general_error"
         layout="@layout/view_general_error" />
 
+    <include
+        android:id="@+id/view_select_category"
+        layout="@layout/view_select_category" />
+
 </ViewFlipper>

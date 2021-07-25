@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.darshan.core.DeviceManager
+import com.darshan.personalitytest.R
 import com.darshan.personalitytest.category.view.CategoryListFragment
 import com.darshan.personalitytest.core.testutil.EspressoIdlingResource
 import com.darshan.personalitytest.databinding.FragmentQuestionsBinding
+import com.darshan.personalitytest.main.viewmodel.SharedViewModel
 import com.darshan.personalitytest.question.view.adapter.QuestionsAdapter
 import com.darshan.personalitytest.question.viewmodel.QuestionsViewModel
 import dagger.android.support.AndroidSupportInjection
@@ -20,7 +23,8 @@ class QuestionsFragment : Fragment() {
     enum class UIState {
         LOADING,
         LOADED,
-        ERROR
+        ERROR,
+        TABLET_EMPTY_VIEW
     }
 
     private var _binding: FragmentQuestionsBinding? = null
@@ -36,12 +40,11 @@ class QuestionsFragment : Fragment() {
     @Inject
     lateinit var questionsViewModel: QuestionsViewModel
 
-    companion object {
-        private const val KEY_CATEGORY_ID = "KEY_CATEGORY_ID"
-        fun newInstance(categoryId: String) = QuestionsFragment().apply {
-            arguments = Bundle().apply { putString(KEY_CATEGORY_ID, categoryId) }
-        }
-    }
+    @Inject
+    lateinit var sharedViewModel: SharedViewModel
+
+    @Inject
+    lateinit var deviceManager: DeviceManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,14 +58,33 @@ class QuestionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupClickListener()
         setupRecyclerView()
+        setupViewModel(savedInstanceState)
+    }
 
+    private fun setupViewModel(savedInstanceState: Bundle?) {
         questionsViewModel.apply {
             state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
-            arguments?.getString(KEY_CATEGORY_ID)?.let {
+        }
+
+        sharedViewModel.state.observe(viewLifecycleOwner, { categoryId ->
+            if (categoryId == null) {
+                binding.viewFlipperQuestions.displayedChild = UIState.TABLET_EMPTY_VIEW.ordinal
+            } else {
                 EspressoIdlingResource.increment()
-                getQuestions(it)
+                questionsViewModel.getQuestions(categoryId)
             }
+        })
+    }
+
+    private fun setupClickListener() {
+        binding.viewGeneralError.tryAgainButton.setOnClickListener {
+            sharedViewModel.state.value?.let {
+                questionsViewModel.getQuestions(it)
+            }
+        }
+        binding.viewQuestionsLoaded.submitButton.setOnClickListener {
 
         }
     }
@@ -83,7 +105,13 @@ class QuestionsFragment : Fragment() {
                 binding.viewFlipperQuestions.displayedChild = UIState.LOADING.ordinal
             }
             is QuestionsViewModel.State.Success -> {
-                binding.viewFlipperQuestions.displayedChild = CategoryListFragment.UIState.LOADED.ordinal
+                binding.viewFlipperQuestions.displayedChild =
+                    CategoryListFragment.UIState.LOADED.ordinal
+                binding.viewQuestionsLoaded.selectedCategoryTitle.text =
+                    getString(
+                        R.string.category_title_selected,
+                        state.questions[0].category.uppercase()
+                    )
                 questionsAdapter.setQuestion(state.questions)
             }
             QuestionsViewModel.State.Error -> {

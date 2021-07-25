@@ -2,6 +2,7 @@ package com.darshan.personalitytest.app.injection
 
 import android.app.Application
 import android.content.Context
+import com.darshan.core.DeviceManager
 import com.darshan.core.injection.qualifiers.ForApplication
 import com.darshan.core.injection.qualifiers.ForIoThread
 import com.darshan.core.injection.qualifiers.ForMainThread
@@ -37,5 +38,9 @@ class BaseModule {
     @Provides
     @PerApplication
     fun provideGson() = Gson()
+
+    @Provides
+    @PerApplication
+    fun provideDeviceManager(@ForApplication application: Context): DeviceManager = DeviceManager(application)
 
 }

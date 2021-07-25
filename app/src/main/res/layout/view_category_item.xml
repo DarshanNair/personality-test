@@ -16,6 +16,7 @@
         android:layout_margin="16dp"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:gravity="center"
         android:textStyle="bold"
         tools:text="My Category" />
 
