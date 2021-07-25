@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity()
 data class QuestionEntity(
     @PrimaryKey val question: String,
+    val id: Int,    //"json-server" Hack -> To make PATCH call work
     val category: String,
     val question_type: String,
     val question_options: String,

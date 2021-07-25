@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.darshan.core.DeviceManager
+import com.darshan.coretesting.EspressoIdlingResource
 import com.darshan.personalitytest.R
 import com.darshan.personalitytest.category.view.CategoryListFragment
-import com.darshan.personalitytest.core.testutil.EspressoIdlingResource
 import com.darshan.personalitytest.databinding.FragmentQuestionsBinding
+import com.darshan.personalitytest.main.SubmitProgress
 import com.darshan.personalitytest.main.viewmodel.SharedViewModel
 import com.darshan.personalitytest.question.view.adapter.QuestionsAdapter
 import com.darshan.personalitytest.question.viewmodel.QuestionsViewModel
+import dagger.Lazy
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -45,6 +49,9 @@ class QuestionsFragment : Fragment() {
 
     @Inject
     lateinit var deviceManager: DeviceManager
+
+    @Inject
+    lateinit var submitProgress: Lazy<SubmitProgress>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,7 +92,9 @@ class QuestionsFragment : Fragment() {
             }
         }
         binding.viewQuestionsLoaded.submitButton.setOnClickListener {
-
+            sharedViewModel.state.value?.let {
+                questionsViewModel.submit(it)
+            }
         }
     }
 
@@ -116,6 +125,25 @@ class QuestionsFragment : Fragment() {
             }
             QuestionsViewModel.State.Error -> {
                 binding.viewFlipperQuestions.displayedChild = UIState.ERROR.ordinal
+            }
+            QuestionsViewModel.State.Submitting -> {
+                submitProgress.get().show()
+            }
+            QuestionsViewModel.State.SubmitSuccess -> {
+                submitProgress.get().hide()
+                Toast.makeText(requireContext(), R.string.submitting_success, Toast.LENGTH_SHORT).show()
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+            QuestionsViewModel.State.SubmitFailed -> {
+                submitProgress.get().hide()
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.submitting_failed_title)
+                    .setMessage(R.string.submitting_failed_description)
+                    .setPositiveButton(R.string.submit_ok_button) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .setCancelable(false)
+                    .show()
             }
         }
         EspressoIdlingResource.decrement()

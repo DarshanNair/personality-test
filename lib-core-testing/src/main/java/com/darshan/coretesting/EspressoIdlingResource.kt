@@ -1,4 +1,4 @@
-package com.darshan.personalitytest.core.testutil
+package com.darshan.coretesting
 
 import androidx.test.espresso.idling.CountingIdlingResource
 

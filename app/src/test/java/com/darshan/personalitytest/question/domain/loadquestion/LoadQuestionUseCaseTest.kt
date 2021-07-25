@@ -47,6 +47,7 @@ class LoadQuestionUseCaseTest {
     fun `Load Question - Success`() {
         //GIVEN
         val questionData = QuestionData(
+            1,
             "QUESTION",
             "CATEGORY",
             QuestionType(

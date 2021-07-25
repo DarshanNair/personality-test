@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "question": "What is your gender?",
     "category": "hard_fact",
     "question_type": {
@@ -13,6 +14,7 @@
     }
   },
   {
+    "id": 2,
     "question": "How important is the gender of your partner?",
     "category": "hard_fact",
     "question_type": {
@@ -26,6 +28,7 @@
     }
   },
   {
+    "id": 3,
     "question": "How important is the age of your partner to you?",
     "category": "hard_fact",
     "question_type": {
@@ -58,6 +61,7 @@
     }
   },
   {
+    "id": 4,
     "question": "Do any children under the age of 18 live with you?",
     "category": "hard_fact",
     "question_type": {
@@ -71,6 +75,7 @@
     }
   },
   {
+    "id": 8,
     "question": "What is your marital status?",
     "category": "hard_fact",
     "question_type": {

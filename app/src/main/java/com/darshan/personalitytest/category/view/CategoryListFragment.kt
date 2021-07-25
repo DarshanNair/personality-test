@@ -12,7 +12,7 @@ import com.darshan.core.DeviceManager
 import com.darshan.personalitytest.R
 import com.darshan.personalitytest.category.view.adapter.CategoryListAdapter
 import com.darshan.personalitytest.category.viewmodel.CategoryListViewModel
-import com.darshan.personalitytest.core.testutil.EspressoIdlingResource
+import com.darshan.coretesting.EspressoIdlingResource
 import com.darshan.personalitytest.databinding.FragmentCategoryListBinding
 import com.darshan.personalitytest.main.viewmodel.SharedViewModel
 import com.darshan.personalitytest.question.view.QuestionsFragment

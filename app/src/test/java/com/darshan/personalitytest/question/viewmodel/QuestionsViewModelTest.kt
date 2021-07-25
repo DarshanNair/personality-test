@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.darshan.personalitytest.question.domain.loadquestion.LoadQuestionUseCase
+import com.darshan.personalitytest.question.domain.submitcategory.SubmitUseCase
 import com.darshan.personalitytest.question.domain.updatequestion.UpdateQuestionUseCase
 import com.darshan.personalitytest.question.model.Question
 import org.junit.Before
@@ -30,6 +31,9 @@ class QuestionsViewModelTest {
     private lateinit var mockUpdateQuestionUseCase: UpdateQuestionUseCase
 
     @Mock
+    private lateinit var mockSubmitUseCase: SubmitUseCase
+
+    @Mock
     private lateinit var mockObserver: Observer<QuestionsViewModel.State>
 
     @Mock
@@ -49,7 +53,8 @@ class QuestionsViewModelTest {
         stateLiveData = MutableLiveData()
         subject = QuestionsViewModelImpl(
             mockLoadQuestionUseCase,
-            mockUpdateQuestionUseCase
+            mockUpdateQuestionUseCase,
+            mockSubmitUseCase
         )
         subject.state.observeForever(mockObserver)
     }

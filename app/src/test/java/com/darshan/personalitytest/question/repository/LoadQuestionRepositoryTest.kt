@@ -38,17 +38,30 @@ class LoadQuestionRepositoryTest {
         subject = LoadQuestionRepositoryImpl(mockPersonalityDatabase, mockPersonalityApi, gson)
     }
 
+    private val questionEntity = QuestionEntity(
+        "QUESTION",
+        1,
+        "CATEGORY",
+        "QUESTION_TYPE",
+        "[QUESTION_OPTIONS]",
+        "QUESTION_OPTION_SELECTED",
+        "QUESTION_CONDITION"
+    )
+
+    private val questionData = QuestionData(
+        1,
+        "QUESTION",
+        "CATEGORY",
+        QuestionType(
+            "QUESTION_TYPE",
+            "QUESTION_OPTION_SELECTED",
+            listOf("QUESTION_OPTIONS")
+        )
+    )
+
     @Test
     fun `Get Questions - from database`() {
         //GIVEN
-        val questionEntity = QuestionEntity(
-            "QUESTION",
-            "CATEGORY",
-            "QUESTION_TYPE",
-            "[QUESTION_OPTIONS]",
-            "QUESTION_OPTION_SELECTED",
-            "QUESTION_CONDITION"
-        )
         given(mockPersonalityDatabase.questionDao()).willReturn(mockQuestionDao)
         given(mockQuestionDao.getQuestionsByCategory("CATEGORY"))
             .willReturn(Single.just(listOf(questionEntity)))
@@ -59,31 +72,12 @@ class LoadQuestionRepositoryTest {
         //THEN
         then(mockQuestionDao).should().getQuestionsByCategory("CATEGORY")
         then(mockPersonalityApi).shouldHaveNoInteractions()
-        singleQuestions shouldBeEqualTo listOf(
-            QuestionData(
-                "QUESTION",
-                "CATEGORY",
-                QuestionType(
-                    "QUESTION_TYPE",
-                    "QUESTION_OPTION_SELECTED",
-                    listOf("QUESTION_OPTIONS")
-                )
-            )
-        )
+        singleQuestions shouldBeEqualTo listOf(questionData)
     }
 
     @Test
     fun `Get Questions - from network`() {
         //GIVEN
-        val questionData = QuestionData(
-            "QUESTION",
-            "CATEGORY",
-            QuestionType(
-                "QUESTION_TYPE",
-                "QUESTION_OPTION_SELECTED",
-                listOf("QUESTION_OPTIONS")
-            )
-        )
         given(mockPersonalityDatabase.questionDao()).willReturn(mockQuestionDao)
         given(mockQuestionDao.getQuestionsByCategory("CATEGORY")).willReturn(Single.just(emptyList()))
         given(mockPersonalityApi.getQuestions("CATEGORY"))
@@ -99,6 +93,7 @@ class LoadQuestionRepositoryTest {
             listOf(
                 QuestionEntity(
                     "QUESTION",
+                    1,
                     "CATEGORY",
                     "QUESTION_TYPE",
                     "[\"QUESTION_OPTIONS\"]",
@@ -108,6 +103,50 @@ class LoadQuestionRepositoryTest {
             )
         )
         singleQuestions shouldBeEqualTo listOf(questionData)
+    }
+
+    @Test
+    fun `Get Question - from database`() {
+        //GIVEN
+        given(mockPersonalityDatabase.questionDao()).willReturn(mockQuestionDao)
+        given(mockQuestionDao.getQuestion("QUESTION")).willReturn(Single.just(questionEntity))
+
+        //WHEN
+        val singleQuestions = subject.getQuestion("QUESTION").blockingGet()
+
+        //THEN
+        then(mockQuestionDao).should().getQuestion("QUESTION")
+        then(mockPersonalityApi).shouldHaveNoInteractions()
+        singleQuestions shouldBeEqualTo questionEntity
+    }
+
+    @Test
+    fun `Update Question - in database`() {
+        //GIVEN
+        given(mockPersonalityDatabase.questionDao()).willReturn(mockQuestionDao)
+
+        //WHEN
+        val singleQuestions = subject.updateQuestion(questionEntity)
+
+        //THEN
+        then(mockQuestionDao).should().updateQuestion(questionEntity)
+        then(mockPersonalityApi).shouldHaveNoInteractions()
+    }
+
+    @Test
+    fun `Get Questions by category - from database`() {
+        //GIVEN
+        given(mockPersonalityDatabase.questionDao()).willReturn(mockQuestionDao)
+        given(mockQuestionDao.getQuestionsByCategory("CATEGORY"))
+            .willReturn(Single.just(listOf(questionEntity)))
+
+        //WHEN
+        val singleQuestions = subject.getQuestionsByCategory("CATEGORY").blockingGet()
+
+        //THEN
+        then(mockQuestionDao).should().getQuestionsByCategory("CATEGORY")
+        then(mockPersonalityApi).shouldHaveNoInteractions()
+        singleQuestions shouldBeEqualTo listOf(questionEntity)
     }
 
 }

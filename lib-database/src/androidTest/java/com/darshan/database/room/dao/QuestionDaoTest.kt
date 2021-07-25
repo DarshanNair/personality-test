@@ -19,6 +19,26 @@ class QuestionDaoTest : TestCase() {
     private lateinit var database: PersonalityDatabase
     private lateinit var questionDao: QuestionDao
 
+    private val questionEntity1 = QuestionEntity(
+        "QUESTION1",
+        1,
+        "CATEGORY1",
+        "QUESTION_TYPE1",
+        "QUESTION_OPTIONS1",
+        "QUESTION_OPTION_SELECTED1",
+        "QUESTION_CONDITION1"
+    )
+
+    private val questionEntity2 = QuestionEntity(
+        "QUESTION2",
+        2,
+        "CATEGORY2",
+        "QUESTION_TYPE2",
+        "QUESTION_OPTIONS2",
+        "QUESTION_OPTION_SELECTED2",
+        "QUESTION_CONDITION2"
+    )
+
     @Before
     public override fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -34,24 +54,7 @@ class QuestionDaoTest : TestCase() {
     @Test
     fun writeAndReadQuestions() {
         //GIVEN
-        val writeQuestionEntityList = listOf(
-            QuestionEntity(
-                "QUESTION1",
-                "CATEGORY1",
-                "QUESTION_TYPE1",
-                "QUESTION_OPTIONS1",
-                "QUESTION_OPTION_SELECTED1",
-                "QUESTION_CONDITION1"
-            ),
-            QuestionEntity(
-                "QUESTION2",
-                "CATEGORY2",
-                "QUESTION_TYPE2",
-                "QUESTION_OPTIONS2",
-                "QUESTION_OPTION_SELECTED2",
-                "QUESTION_CONDITION2"
-            )
-        )
+        val writeQuestionEntityList = listOf(questionEntity1, questionEntity2)
 
         //WHEN
         questionDao.insertQuestions(writeQuestionEntityList)
@@ -64,27 +67,11 @@ class QuestionDaoTest : TestCase() {
     @Test
     fun updateAndReadQuestions() {
         //GIVEN
-        val writeQuestionEntityList = listOf(
-            QuestionEntity(
-                "QUESTION1",
-                "CATEGORY1",
-                "QUESTION_TYPE1",
-                "QUESTION_OPTIONS1",
-                "QUESTION_OPTION_SELECTED1",
-                "QUESTION_CONDITION1"
-            ),
-            QuestionEntity(
-                "QUESTION2",
-                "CATEGORY2",
-                "QUESTION_TYPE2",
-                "QUESTION_OPTIONS2",
-                "QUESTION_OPTION_SELECTED2",
-                "QUESTION_CONDITION2"
-            )
-        )
+        val writeQuestionEntityList = listOf(questionEntity1, questionEntity2)
 
         val writeQuestionEntity = QuestionEntity(
             "QUESTION1",
+            1,
             "CATEGORY3",
             "QUESTION_TYPE3",
             "QUESTION_OPTIONS3",
@@ -107,24 +94,7 @@ class QuestionDaoTest : TestCase() {
     @Test
     fun readQuestion() {
         //GIVEN
-        val writeQuestionEntityList = listOf(
-            QuestionEntity(
-                "QUESTION1",
-                "CATEGORY1",
-                "QUESTION_TYPE1",
-                "QUESTION_OPTIONS1",
-                "QUESTION_OPTION_SELECTED1",
-                "QUESTION_CONDITION1"
-            ),
-            QuestionEntity(
-                "QUESTION2",
-                "CATEGORY2",
-                "QUESTION_TYPE2",
-                "QUESTION_OPTIONS2",
-                "QUESTION_OPTION_SELECTED2",
-                "QUESTION_CONDITION2"
-            )
-        )
+        val writeQuestionEntityList = listOf(questionEntity1, questionEntity2)
 
         //WHEN
         questionDao.insertQuestions(writeQuestionEntityList)
@@ -137,24 +107,7 @@ class QuestionDaoTest : TestCase() {
     @Test
     fun readQuestionsByCategory() {
         //GIVEN
-        val writeQuestionEntityList = listOf(
-            QuestionEntity(
-                "QUESTION1",
-                "CATEGORY1",
-                "QUESTION_TYPE1",
-                "QUESTION_OPTIONS1",
-                "QUESTION_OPTION_SELECTED1",
-                "QUESTION_CONDITION1"
-            ),
-            QuestionEntity(
-                "QUESTION2",
-                "CATEGORY2",
-                "QUESTION_TYPE2",
-                "QUESTION_OPTIONS2",
-                "QUESTION_OPTION_SELECTED2",
-                "QUESTION_CONDITION2"
-            )
-        )
+        val writeQuestionEntityList = listOf(questionEntity1, questionEntity2)
 
         //WHEN
         questionDao.insertQuestions(writeQuestionEntityList)

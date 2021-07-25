@@ -6,7 +6,11 @@ import com.darshan.network.api.PersonalityApi
 import com.darshan.network.model.QuestionData
 import com.darshan.network.model.QuestionType
 import com.google.gson.Gson
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
+import retrofit2.http.Body
+import retrofit2.http.Path
 import javax.inject.Inject
 
 class LoadQuestionRepositoryImpl @Inject constructor(
@@ -35,6 +39,7 @@ class LoadQuestionRepositoryImpl @Inject constructor(
         questionEntityList.forEach {
             questionDataList.add(
                 QuestionData(
+                    it.id,
                     it.question,
                     it.category,
                     QuestionType(
@@ -57,6 +62,7 @@ class LoadQuestionRepositoryImpl @Inject constructor(
             questionEntityList.add(
                 QuestionEntity(
                     it.question,
+                    it.id,
                     it.category,
                     it.questionType.type,
                     gson.toJson(it.questionType.options),
@@ -81,4 +87,7 @@ class LoadQuestionRepositoryImpl @Inject constructor(
         return personalityDatabase.questionDao().getQuestionsByCategory(category)
     }
 
+    override fun updateQuestion(id: Int, questionData: QuestionData): Observable<QuestionData> {
+        return personalityApi.updateQuestion(id, questionData)
+    }
 }

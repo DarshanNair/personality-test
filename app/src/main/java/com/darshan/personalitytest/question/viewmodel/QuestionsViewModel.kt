@@ -10,6 +10,9 @@ abstract class QuestionsViewModel : ViewModel() {
         object Loading : State()
         data class Success(val questions: List<Question>) : State()
         object Error : State()
+        object Submitting : State()
+        object SubmitSuccess : State()
+        object SubmitFailed : State()
     }
 
     abstract val state: LiveData<State>
@@ -18,4 +21,5 @@ abstract class QuestionsViewModel : ViewModel() {
 
     abstract fun updateQuestion(question: Question)
 
+    abstract fun submit(category: String)
 }

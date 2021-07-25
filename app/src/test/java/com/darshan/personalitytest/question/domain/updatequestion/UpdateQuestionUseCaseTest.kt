@@ -43,6 +43,7 @@ class UpdateQuestionUseCaseTest {
         //GIVEN
         val questionEntity = QuestionEntity(
             "QUESTION",
+            1,
             "CATEGORY",
             "TYPE",
             "OPTIONS"
@@ -57,9 +58,10 @@ class UpdateQuestionUseCaseTest {
 
         // THEN
         then(mockLoadQuestionRepository).should().getQuestion("QUESTION")
-        then(mockLoadQuestionRepository).should().insertQuestions(
+        then(mockLoadQuestionRepository).should().updateQuestion(
             QuestionEntity(
                 "QUESTION",
+                1,
                 "CATEGORY",
                 "TYPE",
                 "OPTIONS",

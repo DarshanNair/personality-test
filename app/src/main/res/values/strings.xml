@@ -5,4 +5,9 @@
     <string name="error_message_button">Try again</string>
     <string name="category_title_selected">Please provide your inputs for : %s</string>
     <string name="submit_button">Submit</string>
+    <string name="submitting_text">Submitting....</string>
+    <string name="submitting_failed_title">Submit Failed</string>
+    <string name="submitting_failed_description">Submit after sometimes</string>
+    <string name="submit_ok_button">OK</string>
+    <string name="submitting_success">Submit Success</string>
 </resources>
