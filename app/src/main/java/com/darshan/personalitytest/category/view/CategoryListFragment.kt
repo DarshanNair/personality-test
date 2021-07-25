@@ -94,8 +94,8 @@ class CategoryListFragment : Fragment() {
     private fun setupViewModel(savedInstanceState: Bundle?) {
         categoryListViewModel.apply {
             state.observe(viewLifecycleOwner, { it?.let { onCategoryLoaded(it) } })
-            EspressoIdlingResource.increment()
             if (savedInstanceState == null) {
+                EspressoIdlingResource.increment()
                 sharedViewModel.state.value = null
                 loadCategories()
             }
@@ -115,15 +115,17 @@ class CategoryListFragment : Fragment() {
             is CategoryListViewModel.State.Success -> {
                 binding.viewFlipperCategoryList.displayedChild = UIState.LOADED.ordinal
                 categoryListAdapter.setCategory(state.categories)
+                EspressoIdlingResource.decrement()
             }
             CategoryListViewModel.State.Error -> {
                 binding.viewFlipperCategoryList.displayedChild = UIState.ERROR.ordinal
+                EspressoIdlingResource.decrement()
             }
             CategoryListViewModel.State.Empty -> {
+                EspressoIdlingResource.decrement()
                 //TODO
             }
         }
-        EspressoIdlingResource.decrement()
     }
 
 }

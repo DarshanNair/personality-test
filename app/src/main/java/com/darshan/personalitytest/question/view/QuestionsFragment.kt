@@ -88,11 +88,13 @@ class QuestionsFragment : Fragment() {
     private fun setupClickListener() {
         binding.viewGeneralError.tryAgainButton.setOnClickListener {
             sharedViewModel.state.value?.let {
+                EspressoIdlingResource.increment()
                 questionsViewModel.getQuestions(it)
             }
         }
         binding.viewQuestionsLoaded.submitButton.setOnClickListener {
             sharedViewModel.state.value?.let {
+                EspressoIdlingResource.increment()
                 questionsViewModel.submit(it)
             }
         }
@@ -122,9 +124,11 @@ class QuestionsFragment : Fragment() {
                         state.questions[0].category.uppercase()
                     )
                 questionsAdapter.setQuestion(state.questions)
+                EspressoIdlingResource.decrement()
             }
             QuestionsViewModel.State.Error -> {
                 binding.viewFlipperQuestions.displayedChild = UIState.ERROR.ordinal
+                EspressoIdlingResource.decrement()
             }
             QuestionsViewModel.State.Submitting -> {
                 submitProgress.get().show()
@@ -133,6 +137,7 @@ class QuestionsFragment : Fragment() {
                 submitProgress.get().hide()
                 Toast.makeText(requireContext(), R.string.submitting_success, Toast.LENGTH_SHORT).show()
                 requireActivity().supportFragmentManager.popBackStack()
+                EspressoIdlingResource.decrement()
             }
             QuestionsViewModel.State.SubmitFailed -> {
                 submitProgress.get().hide()
@@ -144,9 +149,9 @@ class QuestionsFragment : Fragment() {
                     }
                     .setCancelable(false)
                     .show()
+                EspressoIdlingResource.decrement()
             }
         }
-        EspressoIdlingResource.decrement()
     }
 
     override fun onDestroyView() {
