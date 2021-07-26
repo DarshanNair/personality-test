@@ -57,23 +57,24 @@ Each Repository is tested using local unit tests with mocked Network layer and m
 Path: /PersonalityTest/app/src/test/java/com/darshan/personalitytest/
 
 ### Building from Android Studio
-You can open the project in Android studio and press run. All ready.<br/>
-Turn on **JSON Server** server before execution, else app won't work and will show "Try again" screen.<br/>
-As **JSON Server** provides fake json DB, user submitted answers persist even after app is uninstalled.<br/>
-So on app re-install, submitted answers will be queried back and shown on app again :) 
+You can open the project in Android studio and press run. All ready.
 
 ### Building/Testing/Code-coverage from Terminal
 1. **Build:** ./gradlew clean assembleDebug
 2. **Test:** ./gradlew clean testDebugUnitTest connectedDebugAndroidTest
 3. **Code coverage:** ./gradlew testDebugUnitTest connectedDebugAndroidTest -PenableCodeCoverage=true
-    
+
+Turn on **JSON Server** server before execution, else app won't work and will show "Try again" screen.<br/>
+As **JSON Server** provides fake json DB, user submitted answers persist even after app is uninstalled.<br/>
+So on app re-install, submitted answers will be queried back and shown on app again :)     
+
 ### Security:
 As MockWebserver and Json-server support requests in **http** format only, have made some temporary security hacks in XML.<br/> 
 Have added a security configuration XML inside **debug only** folder app/src/debug/res/xml/network_security_config.xml.<br/>
 This XML configuration can be removed once actual backend endpoint is enabled.
 
 ### Pending as part of assignment:
-As part of this project implementation, have created ViewHolder of only one question type: single_choice
+As part of this project implementation, have created ViewHolder of only one question type: single_choice<br/>
 Pending to implement "single_choice_conditional" type. 
 
 ### Libraries
