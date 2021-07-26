@@ -7,6 +7,9 @@ Mostly concentrated on the Android based front end development.
 Introduction
 -------------
 
+### Architecture
+Have used MVVM + Clean architecture
+
 ### Functionality
 The app is composed of 2 main screens.
 
