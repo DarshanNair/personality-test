@@ -16,6 +16,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "com.darshan.personalitytest.app.CustomTestRunner"
+
+        // The following argument makes the Android Test Orchestrator run its
+        // "pm clear" command after each test invocation. This command ensures
+        // that the app's state is completely cleared between tests.
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
     buildTypes {
@@ -34,6 +39,11 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+
+    testOptions {
+        animationsDisabled = true
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
 }
 
@@ -86,6 +96,7 @@ dependencies {
     androidTestImplementation deps.androidXRunner
     androidTestImplementation deps.andriodXRules
     androidTestImplementation deps.espressoContrib
+    androidTestUtil deps.testOrchestrator
 
     kaptAndroidTest deps.testDaggerCompiler
     kaptAndroidTest deps.testDaggerProcessor

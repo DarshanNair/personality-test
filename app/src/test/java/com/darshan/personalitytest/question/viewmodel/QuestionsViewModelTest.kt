@@ -62,7 +62,7 @@ class QuestionsViewModelTest {
     @Test
     fun `Load questions`() {
         // GIVEN
-        Mockito.reset(mockLoadQuestionUseCase)
+        Mockito.reset(mockLoadQuestionUseCase, mockSubmitUseCase)
 
         //WHEN
         subject.getQuestions(CATEGORY)
@@ -72,6 +72,7 @@ class QuestionsViewModelTest {
         then(mockLoadQuestionUseCase).should().execute(CATEGORY)
         then(mockLoadQuestionUseCase).shouldHaveNoMoreInteractions()
         then(mockUpdateQuestionUseCase).shouldHaveNoInteractions()
+        then(mockSubmitUseCase).shouldHaveNoInteractions()
     }
 
     @Test
@@ -88,12 +89,16 @@ class QuestionsViewModelTest {
 
     @Test
     fun `Question Update`() {
+        // GIVEN
+        Mockito.reset(mockSubmitUseCase)
+
         // WHEN
         subject.updateQuestion(mockQuestion)
 
         // THEN
         then(mockUpdateQuestionUseCase).should().execute(mockQuestion)
         then(mockUpdateQuestionUseCase).shouldHaveNoMoreInteractions()
+        then(mockSubmitUseCase).shouldHaveNoInteractions()
     }
 
     @Test
@@ -108,8 +113,7 @@ class QuestionsViewModelTest {
     @Test
     fun `On Cleared`() {
         // GIVEN
-        Mockito.reset(mockLoadQuestionUseCase)
-        Mockito.reset(mockUpdateQuestionUseCase)
+        Mockito.reset(mockLoadQuestionUseCase, mockUpdateQuestionUseCase, mockSubmitUseCase)
 
         // WHEN
         subject.onCleared()
@@ -117,6 +121,44 @@ class QuestionsViewModelTest {
         // THEN
         then(mockLoadQuestionUseCase).should().cleanup()
         then(mockUpdateQuestionUseCase).should().cleanup()
+        then(mockSubmitUseCase).should().cleanup()
+    }
+
+    @Test
+    fun `Submit questions for a category`() {
+        // GIVEN
+        Mockito.reset(mockLoadQuestionUseCase, mockSubmitUseCase)
+
+        //WHEN
+        subject.submit(CATEGORY)
+
+        //THEN
+        thenObserverShouldReceiveCorrectStates(QuestionsViewModel.State.Submitting)
+        then(mockSubmitUseCase).should().execute(CATEGORY)
+        then(mockSubmitUseCase).shouldHaveNoMoreInteractions()
+        then(mockLoadQuestionUseCase).shouldHaveNoInteractions()
+        then(mockUpdateQuestionUseCase).shouldHaveNoInteractions()
+    }
+
+    @Test
+    fun `Submit questions - Success`() {
+        // GIVEN
+        val categories = listOf(mockQuestion)
+
+        // WHEN
+        subject.onSubmitSuccess()
+
+        // THEN
+        thenObserverShouldReceiveCorrectStates(QuestionsViewModel.State.SubmitSuccess)
+    }
+
+    @Test
+    fun `Submit questions - Error`() {
+        // WHEN
+        subject.onSubmitError(mockThrowable)
+
+        // THEN
+        thenObserverShouldReceiveCorrectStates(QuestionsViewModel.State.SubmitFailed)
     }
 
     private fun thenObserverShouldReceiveCorrectStates(vararg expected: QuestionsViewModel.State) {

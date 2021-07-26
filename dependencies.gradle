@@ -68,6 +68,7 @@ ext.deps = [
         espressoIdlingRes   :   "androidx.test.espresso:espresso-idling-resource:$espressoVersion", // some issue with 3.4.0
         androidXFragment    :   "androidx.fragment:fragment-testing:$androidXFragmentVersion",
         androidXRunner      :   "androidx.test:runner:$androidXRunnerVersion",
+        testOrchestrator    :   "androidx.test:orchestrator:$androidXRunnerVersion",
         andriodXRules       :   "androidx.test:rules:$andriodXRulesVersion",
         espressoContrib     :   "com.android.support.test.espresso:espresso-contrib:$espressoContribVersion",
 
