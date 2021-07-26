@@ -1,7 +1,7 @@
 Personality Test
 ===========================================================
 
-Worked on “Personality Test” project: https://github.com/sparknetworks/coding_exercises_options/blob/master/personality_test/README.md
+Worked on “Personality Test” project: https://github.com/sparknetworks/coding_exercises_options/blob/master/personality_test/README.md<br/>
 Mostly concentrated on the Android based front end development.
 
 Introduction
@@ -14,12 +14,12 @@ The app is composed of 2 main screens.
 This fragment display the categories fetched from network (for app first launch) and later it will be fetched from the local DB.
 
 #### QuestionsFragment
-This fragment display the Personality test questions for a selected category in CategoryListFragment.
-Questions will be fetched from network for first time and later it will be displayed from the local DB. 
-User can interact with the Personality test questions in offline/online mode. Once they are comfortable with the selection, answers can be submitted to backend in one shot per category.
+This fragment display the Personality test questions for a selected category in CategoryListFragment.<br/>
+Questions will be fetched from network for first time and later it will be displayed from the local DB.<br/>
+User can interact with the Personality test questions in offline/online mode. Once they are comfortable with the selection, answers can be submitted to backend in one shot per category.<br/>
 
-**NOTE** This note is for Personality questions which changes frequently from backend. If it’s static, no issues.
-Currently there is no expiration to local DB content, once loaded from network via rest api. Hence on subsequent app launches, questions will be read from local DB.  
+**NOTE** This note is for Personality questions which changes frequently from backend. If it’s static, no issues.<br/>
+Currently there is no expiration to local DB content, once loaded from network via rest api. Hence on subsequent app launches, questions will be read from local DB.<br/>  
 Probably we can extend this project, to have DB content valid for 24 hours and re-fetch from network once expired.
 
 ### Server:
@@ -32,9 +32,9 @@ Installation steps:
 5. More info: https://www.npmjs.com/package/json-server
 
 ### Building
-You can open the project in Android studio and press run. All ready.
-Turn on **JSON Server** server before execution, else app won't work and will show "Try again" screen.
-As **JSON Server** provides fake json DB, user submitted answers persist even after app is uninstalled.
+You can open the project in Android studio and press run. All ready.<br/>
+Turn on **JSON Server** server before execution, else app won't work and will show "Try again" screen.<br/>
+As **JSON Server** provides fake json DB, user submitted answers persist even after app is uninstalled.<br/>
 So on app re-install, submitted answers will be queried back and shown on app again :) 
 
 ### Testing
@@ -42,12 +42,12 @@ The project uses both instrumentation tests that run on the device/emulator and 
 
 #### Device Tests
 ##### Integration Tests
-The project uses Espresso for integration testing. 
-Integration test added for CategoryListFragment and QuestionsFragment
+The project uses Espresso for integration testing.<br/>
+Integration test added for CategoryListFragment and QuestionsFragment.<br/>
 Path: /PersonalityTest/app/src/androidTest/java/com/darshan/personalitytest
 
 ##### Database Tests
-The project creates an in memory database for each database table test but still runs them on the device.
+The project creates an in memory database for each database table test but still runs them on the device.<br/>
 Path: /PersonalityTest/lib-database/src/androidTest/java/com/darshan/database/room/dao
 
 For device/emulator testing, project uses **MockWebServer** project to mock Rest APIs.
@@ -63,8 +63,8 @@ Each Repository is tested using local unit tests with mocked Network layer and m
 Path: /PersonalityTest/app/src/test/java/com/darshan/personalitytest/
 
 ### Security:
-As MockWebserver and Json-server support requests in **http** format only, have made some temporary security hacks in XML. 
-Have added a security configuration XML inside **debug only** folder app/src/debug/res/xml/network_security_config.xml.
+As MockWebserver and Json-server support requests in **http** format only, have made some temporary security hacks in XML.<br/> 
+Have added a security configuration XML inside **debug only** folder app/src/debug/res/xml/network_security_config.xml.<br/>
 This XML configuration can be removed once actual backend endpoint is enabled.
 
 ### Libraries
