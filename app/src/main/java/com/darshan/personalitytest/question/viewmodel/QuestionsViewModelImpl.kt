@@ -20,6 +20,8 @@ class QuestionsViewModelImpl @Inject internal constructor(
 
     override val state = MutableLiveData<State>()
 
+    private var questions = emptyList<Question>()
+
     override fun getQuestions(category: String) {
         state.value = State.Loading
         loadQuestionUseCase.execute(category)
@@ -27,6 +29,7 @@ class QuestionsViewModelImpl @Inject internal constructor(
 
     override fun updateQuestion(question: Question) {
         updateQuestionUseCase.execute(question)
+        state.value = State.SubmitButtonState(isAllRequiredFieldSelected)
     }
 
     override fun submit(category: String) {
@@ -35,7 +38,11 @@ class QuestionsViewModelImpl @Inject internal constructor(
     }
 
     override fun onQuestionFetchSuccess(questions: List<Question>) {
+        this.questions = questions
+        //Hack: Back -> Usecases
+        questions[0].requiredField = true
         state.value = State.Success(questions)
+        state.value = State.SubmitButtonState(isAllRequiredFieldSelected)
     }
 
     override fun onQuestionFetchError(throwable: Throwable) {
@@ -56,5 +63,8 @@ class QuestionsViewModelImpl @Inject internal constructor(
         updateQuestionUseCase.cleanup()
         submitUseCase.cleanup()
     }
+
+    private val isAllRequiredFieldSelected: Boolean
+        get() = questions.filter { it.requiredField }.all { it.selectedOption != "" }
 
 }

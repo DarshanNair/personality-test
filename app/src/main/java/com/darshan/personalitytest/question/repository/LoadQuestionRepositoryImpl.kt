@@ -87,6 +87,10 @@ class LoadQuestionRepositoryImpl @Inject constructor(
         return personalityDatabase.questionDao().getQuestionsByCategory(category)
     }
 
+    override fun updateQuestions(questionEntity: List<QuestionEntity>) {
+        personalityDatabase.questionDao().updateQuestions(questionEntity)
+    }
+
     override fun updateQuestion(id: Int, questionData: QuestionData): Observable<QuestionData> {
         return personalityApi.updateQuestion(id, questionData)
     }

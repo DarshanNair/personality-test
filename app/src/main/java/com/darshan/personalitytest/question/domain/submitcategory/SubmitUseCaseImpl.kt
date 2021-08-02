@@ -10,6 +10,7 @@ import com.darshan.personalitytest.question.repository.LoadQuestionRepository
 import com.google.gson.Gson
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 import javax.inject.Named
@@ -36,10 +37,25 @@ class SubmitUseCaseImpl @Inject constructor(
                     val work = getNetworkFormatContent(it)
                     Observable.zip(work, {})
                 }
+                .map {
+                    val categories = loadQuestionRepository.getQuestionsByCategory(category).blockingGet()
+                    val resetQuestion = getResetQuestionEntity(categories)
+                    loadQuestionRepository.updateQuestions(resetQuestion)
+                }
                 .subscribeOn(ioScheduler)
                 .observeOn(mainScheduler)
                 .subscribe({ onSuccess() }, ::onError)
         )
+    }
+
+    private fun getResetQuestionEntity(questionEntities: List<QuestionEntity>): List<QuestionEntity> {
+        val returnQuestionEntity = mutableListOf<QuestionEntity>()
+
+        questionEntities.forEach {
+            returnQuestionEntity.add(it.copy(question_option_selected = ""))
+        }
+
+        return returnQuestionEntity
     }
 
     override fun setCallback(callback: SubmitUseCase.Callback) {

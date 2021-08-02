@@ -13,7 +13,7 @@ class QuestionsViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(question: Question) {
-        binding.question.text = question.question
+        binding.question.text = "${question.question} ${isRequiredField(question)}"
         with(binding.radioContent) {
             removeAllViewsInLayout()
             val radioGroup = createOptionsView(question)
@@ -46,5 +46,6 @@ class QuestionsViewHolder(
             it.isChecked = true
         }
     }
+    private fun isRequiredField(question: Question) = if(question.requiredField) "*" else ""
 
 }

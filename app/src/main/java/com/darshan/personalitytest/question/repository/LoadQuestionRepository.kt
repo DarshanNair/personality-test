@@ -18,4 +18,6 @@ interface LoadQuestionRepository {
 
     fun updateQuestion(id: Int, questionData: QuestionData): Observable<QuestionData>
 
+    fun updateQuestions(questionEntity: List<QuestionEntity>)
+
 }

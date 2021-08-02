@@ -149,4 +149,18 @@ class LoadQuestionRepositoryTest {
         singleQuestions shouldBeEqualTo listOf(questionEntity)
     }
 
+    @Test
+    fun `reset the selected questions`() {
+        //GIVEN
+        given(mockPersonalityDatabase.questionDao()).willReturn(mockQuestionDao)
+
+        //WHEN
+        subject.updateQuestions(listOf(questionEntity))
+
+        //THEN
+        then(mockPersonalityDatabase).should().questionDao()
+        then(mockQuestionDao).should().updateQuestions(listOf(questionEntity))
+        then(mockPersonalityApi).shouldHaveNoMoreInteractions()
+        then(mockQuestionDao).shouldHaveNoMoreInteractions()
+    }
 }

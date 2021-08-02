@@ -43,7 +43,9 @@ class QuestionsFragmentTest {
         Question(
             "What is your gender?",
             "hard_fact",
-            listOf("male", "female", "other")
+            listOf("male", "female", "other"),
+            "",
+            true
         ),
         Question(
             "How important is the gender of your partner?",
@@ -186,6 +188,38 @@ class QuestionsFragmentTest {
         onView(withText("Submit Success")).inRoot(ToastMatcher()).check(matches(isDisplayed()))
     }
 
+    @Test
+    fun test_launchCategoryFragment_checkSubmitButtonState_isDisabled() {
+        //GIVEN
+        displayedQuestions[0].requiredField = true
+        displayedQuestions[0].selectedOption = ""
+
+        //WHEN
+        launchActivityWithQuestionsFragment()
+
+        //THEN
+        val isSubmitButtonEnabled: Boolean = displayedQuestions.filter { it.requiredField }.all { it.selectedOption != "" }
+        onView(withId(R.id.submit_button)).check{ it, _ ->
+            it.isEnabled shouldBeEqualTo isSubmitButtonEnabled
+        }
+    }
+
+    @Test
+    fun test_launchCategoryFragment_checkSubmitButtonState_isEnabled() {
+        //GIVEN
+        displayedQuestions[0].requiredField = true
+        displayedQuestions[0].selectedOption = "male"
+
+        //WHEN
+        launchActivityWithQuestionsFragment()
+
+        //THEN
+        val isSubmitButtonEnabled: Boolean = displayedQuestions.filter { it.requiredField }.all { it.selectedOption != "" }
+        onView(withId(R.id.submit_button)).check{ it, _ ->
+            it.isEnabled shouldBeEqualTo isSubmitButtonEnabled
+        }
+    }
+
     private fun launchActivityWithQuestionsFragment() {
         launchActivityWithCategoryFragment()
         launchQuestionsFragment()
@@ -239,5 +273,7 @@ class QuestionsFragmentTest {
             }
         }
     }
+
+
 
 }

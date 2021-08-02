@@ -126,6 +126,9 @@ class QuestionsFragment : Fragment() {
                 questionsAdapter.setQuestion(state.questions)
                 EspressoIdlingResource.decrement()
             }
+            is QuestionsViewModel.State.SubmitButtonState -> {
+                binding.viewQuestionsLoaded.submitButton.isEnabled = state.isEnabled
+            }
             QuestionsViewModel.State.Error -> {
                 binding.viewFlipperQuestions.displayedChild = UIState.ERROR.ordinal
                 EspressoIdlingResource.decrement()

@@ -4,5 +4,6 @@ data class Question(
     val question: String,
     val category: String,
     val options: List<String>,
-    var selectedOption: String? = null
+    var selectedOption: String? = null,
+    var requiredField: Boolean = false
 )

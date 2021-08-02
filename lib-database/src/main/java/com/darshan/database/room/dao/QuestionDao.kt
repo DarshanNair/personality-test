@@ -22,4 +22,7 @@ abstract class QuestionDao {
     @Query("SELECT * FROM QuestionEntity WHERE category = :category")
     abstract fun getQuestionsByCategory(category: String): Single<List<QuestionEntity>>
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun updateQuestions(question: List<QuestionEntity>)
+
 }
